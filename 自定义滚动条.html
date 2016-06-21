@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义滚动条</title>
+	<style type="text/css">
+	#Parent{width:400px;height: 20px;background: #ccc;margin:20px auto;position: relative;}
+	#div1{width:20px;height: 20px;background: red;position: absolute;cursor: pointer;}
+	#div2{width:200px;height: 300px;overflow: hidden;border:1px solid #ccc;position: relative;}
+	#div3{position: absolute;}
+	</style>
+</head>
+<body>
+	<div id="Parent">
+		<div id="div1"></div>
+	</div>
+	<div id="div2">
+		<div id="div3"> 
+			她們活的自由奔放，不追求流行，總會找出最適合自己的風格，往往巴黎女人<br />都崇尚乾淨、散發個人光彩的好膚質，搭配上畫龍點睛的口紅及<br />
+			自然率性的髮型…他們相信發自內心的自信與舒適，<br />
+			就是散發優雅光彩的秘密武器！她們活的自由奔放，不追求流行，總會找出最適合自己的風格，往往巴黎女人<br />都崇尚乾淨、散發個人光彩的好膚質，搭配上畫龍點睛的口紅及<br />
+			她們活的自由奔放，不追求流行，總會找出最適合自己的風格，往往巴黎女人<br />都崇尚乾淨、散發個人光彩的好膚質，搭配上畫龍點睛的口紅及<br />
+			她們活的自由奔放，不追求流行，總會找出最適合自己的風格，往往巴黎女人都崇尚乾淨、散發個人光彩的好膚質，搭配上畫龍點睛的口紅及自然率性的髮型…他們相信發自內心的自信與舒適， 就是散發優雅光彩的秘密武器！
+
+			自然率性的髮型…他們相信發自內心的自信與舒適，<br />
+			就是散發優雅光彩的秘密武器！
+			她們活的自由奔放，不追求流行，總會找出最適合自己的風格，往往巴黎女人<br />都崇尚乾淨、散發個人光彩的好膚質，搭配上畫龍點睛的口紅及<br />
+			她們活的自由奔放，不追求流行，總會找出最適合自己的風格，往往巴黎女人都崇尚乾淨、散發個人光彩的好膚質，搭配上畫龍點睛的口紅及自然率性的髮型…他們相信發自內心的自信與舒適， 就是散發優雅光彩的秘密武器！
+			自然率性的髮型…他們相信發自內心的自信與舒適，<br />
+			就是散發優雅光彩的秘密武器！
+			她們活的自由奔放，不追求流行，總會找出最適合自己的風格，往往巴黎女人<br />都崇尚乾淨、散發個人光彩的好膚質，搭配上畫龍點睛的口紅及<br />
+			自然率性的髮型…他們相信發自內心的自信與舒適，<br />
+			她們活的自由奔放，不追求流行，總會找出最適合自己的風格，往往巴黎女人<br />都崇尚乾淨、散發個人光彩的好膚質，搭配上畫龍點睛的口紅及<br />
+			自然率性的髮型…他們相信發自內心的自信與舒適，<br />
+			她們活的自由奔放，不追求流行，總會找出最適合自己的風格，往往巴黎女人<br />都崇尚乾淨、散發個人光彩的好膚質，搭配上畫龍點睛的口紅及<br />
+			自然率性的髮型…他們相信發自內心的自信與舒適，<br />
+			她們活的自由奔放，不追求流行，總會找出最適合自己的風格，往往巴黎女人<br />都崇尚乾淨、散發個人光彩的好膚質，搭配上畫龍點睛的口紅及<br />
+			自然率性的髮型…他們相信發自內心的自信與舒適，<br />
+
+			就是散發優雅光彩的秘密武器！
+			就是散發優雅光彩的秘密武器！
+			就是散發優雅光彩的秘密武器！
+			就是散發優雅光彩的秘密武器！
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	window.onload=function(){
+		var oParent=document.getElementById('Parent');
+		var oDiv1=document.getElementById('div1');
+		var oDiv2=document.getElementById('div2');
+		var oDiv3=document.getElementById('div3');
+
+		oDiv1.onmousedown=function(ev){
+			var oEvent=ev||event;
+			var disX=oEvent.clientX-oDiv1.offsetLeft;
+			document.onmousemove=function(ev){
+				var oEvent=ev||event;
+				var l=oEvent.clientX-disX;
+				setLeft(l);
+			}
+			document.onmouseup=function(){
+				document.onmousemove=null;
+				document.onmouseup=null;
+			}
+			return false;
+		}
+
+		function myAddEvent(obj,sEvent,fn){
+			if(obj.attachEvent){
+				obj.attachEvent('on'+sEvent,fn);
+			}else{
+				obj.addEventListener(sEvent,fn,false);
+			}
+		}
+
+		function wheelFn(ev){
+			var oEvent=ev||event;
+			var beDown = true;
+
+			beDown=oEvent.wheelDelta?oEvent.wheelDelta<0:oEvent.detail>0;
+			
+			/*if(beDown){
+				setLeft(oDiv1.offsetLeft+10);
+			}else{
+				setLeft(oDiv1.offsetLeft-10);
+			}*/
+			
+			beDown?setLeft(oDiv1.offsetLeft+10):setLeft(oDiv1.offsetLeft-10)
+			
+		}
+
+		myAddEvent(oParent,'mousewheel',wheelFn);
+		myAddEvent(oParent,'DOMMouseScroll',wheelFn);
+
+
+		myAddEvent(oDiv2,'mousewheel',wheelFn);
+		myAddEvent(oDiv2,'DOMMouseScroll',wheelFn);
+		function setLeft(l){
+			//l:div2离左边的距离;
+			if(l<0){
+				l=0;
+			}else if(l>oParent.offsetWidth-oDiv1.offsetWidth){
+				l=oParent.offsetWidth-oDiv1.offsetWidth;
+			}
+			var scale=l/(oParent.offsetWidth-oDiv1.offsetWidth);
+			document.title=scale;
+			oDiv1.style.left=l+'px';
+			oDiv3.style.top=-(oDiv3.offsetHeight-oDiv2.offsetHeight)*scale+'px';
+		}
+	}
+	
+	</script>
+</body>
+</html>
